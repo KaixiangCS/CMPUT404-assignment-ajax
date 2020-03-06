@@ -51,12 +51,13 @@ function sendJSONXMLHTTPRequest(url, objects, callback) {
     // since the object may equal to null
     //XXX: POST to a URL
     xhr.open('POST',url);
-    //XXX: set the mimetype and the accept headers!
     //https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest/setRequestHeader
     //myReq.setRequestHeader(header, value);
     //Remember to use application/json!
     xhr.setRequestHeader("Content-Type","application/json");
+    //XXX: set the mimetype and the accept headers!
     xhr.setRequestHeader("Accept","application/jason");
+    xhr.overrideMimeType("application/json");
     xhr.send(JSON.stringify(objects));
 }
 
@@ -106,9 +107,9 @@ function prepEntity(entity) {
 
 function clearFrame() {
     with(context) {
-	moveTo(0,0);
-	fillStyle = "#000";
-	fillRect(0,0,W,H);
+	      moveTo(0,0);
+	      fillStyle = "#000";
+	      fillRect(0,0,W,H);
     }
 
 }
@@ -142,19 +143,19 @@ function drawFrame() {
 // So use this code, it works well on multitouch devices as well.
 
 function getPosition(e) {
-	if ( e.targetTouches && e.targetTouches.length > 0) {
-		var touch = e.targetTouches[0];
-		var x = touch.pageX  - canvas.offsetLeft;
-		var y = touch.pageY  - canvas.offsetTop;
-		return [x,y];
-	} else {
-		var rect = e.target.getBoundingClientRect();
-		var x = e.offsetX || e.pageX - rect.left - window.scrollX;
-		var y = e.offsetY || e.pageY - rect.top  - window.scrollY;
-		var x = e.pageX  - canvas.offsetLeft;
-		var y = e.pageY  - canvas.offsetTop;
-		return [x,y];
-	}
+	      if ( e.targetTouches && e.targetTouches.length > 0) {
+		            var touch = e.targetTouches[0];
+		            var x = touch.pageX  - canvas.offsetLeft;
+		            var y = touch.pageY  - canvas.offsetTop;
+		            return [x,y];
+	      } else {
+		            var rect = e.target.getBoundingClientRect();
+		            var x = e.offsetX || e.pageX - rect.left - window.scrollX;
+		            var y = e.offsetY || e.pageY - rect.top  - window.scrollY;
+		            var x = e.pageX  - canvas.offsetLeft;
+		            var y = e.pageY  - canvas.offsetTop;
+		            return [x,y];
+	      }
 }
 
 
@@ -162,7 +163,7 @@ function addEntity(entity, data) {
     world[entity] = data;
     drawNextFrame(); // (but should we?)
     //XXX: Send a XHTML Request that updates the entity you just  modified!
-    function callback() {};
+    callback = function(){}
     sendJSONXMLHTTPRequest("/entity/" + entity, data, callback);
 }
 
@@ -232,29 +233,29 @@ mouse = (function() {
             self.lasttouch = e;
             return self.mousedown(e);
         },
-	touchend: function(e) {
+	      touchend: function(e) {
             var touch = (self.lasttouch)?self.lasttouch:e;
             return self.mouseup(touch);
-	},
-	mousemove: function(e) {
+	      },
+	      mousemove: function(e) {
             e.preventDefault();
             if (self.wasClicked(e)) {
                 var pos = getPosition(e);
                 var x = pos[0];
                 var y = pos[1];
-	        if (self.clicked != 0) {
-	            //self.squeakin(x,y);
+	              if (self.clicked != 0) {
+	                  //self.squeakin(x,y);
                     self.callListeners(self.mousedraggers,x,y,self.clicked,e);
-	        }
+	              }
                 self.callListeners(self.mousemovers,x,y,self.clicked,e);
             }
-	},
-	touchmove: function(e) {
+	      },
+	      touchmove: function(e) {
             self.lasttouch = e;
             return self.mousemove(e);
-	},
-	// Install the mouse listeners
-	mouseinstall: function() {
+	      },
+	      // Install the mouse listeners
+	      mouseinstall: function() {
             canvas.addEventListener("mousedown",  self.mousedown, false);
             canvas.addEventListener("mousemove",  self.mousemove, false);
             canvas.addEventListener("mouseup",    self.mouseup, false);
@@ -262,7 +263,7 @@ mouse = (function() {
             canvas.addEventListener("touchstart", self.touchstart, false);
             canvas.addEventListener("touchmove",  self.touchmove, false);
             canvas.addEventListener("touchend",   self.touchend, false);
-	}
+	      }
     };
     // Force install!
     self.mouseinstall();
@@ -287,9 +288,7 @@ mouse.mousedraggers.push(function(x,y,clicked,e) {
 
 function update() {
     //XXX: TODO Get the world from the webservice using a XMLHTTPRequest
-    callback = function(object) {
-        world = object;
-    }
+    callback = function(object) {world = object;}
     sendJSONXMLHTTPRequest("/world", null, callback);
     drawNextFrame();
     drawFrame();

@@ -96,7 +96,7 @@ function getRandomArbitrary(min, max) {
 
 function prepEntity(entity) {
     if (!entity["colour"]) {
-        entity["colour"] = "#FF0000";
+        entity["colour"] = getRandomColor();
     }
     if (!entity["radius"]) {
         entity["radius"] = getRandomArbitrary(25, 75);
@@ -287,8 +287,8 @@ mouse.mousedraggers.push(function(x,y,clicked,e) {
 
 function update() {
     //XXX: TODO Get the world from the webservice using a XMLHTTPRequest
-    callback = function(responseObj) {
-        world = responseObj;
+    callback = function(object) {
+        world = object;
     }
     sendJSONXMLHTTPRequest("/world", null, callback);
     drawNextFrame();

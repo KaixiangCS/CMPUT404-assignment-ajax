@@ -19,6 +19,10 @@ Reference
 
 https://github.com/uofa-cmput404/cmput404-slides/blob/master/examples/ObserverExampleAJAX/server.py Most of the functions inside the server.py which have been implemented are based on the examples.
 
+https://www.w3schools.com/js/js_json_parse.asp learned how to use json.parse()
+
+https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc learned how the arc method works so that I know how can I make changes to make the circle prettier.
+
 https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest/setRequestHeader & https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/responseLearn how to use the XMLHTTPRequest function to create a request and return Content-Type and Accept
 
 //https://stackoverflow.com/questions/1484506/random-color-generator Copied a generate random color function to make the circle's color dynamic.

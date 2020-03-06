@@ -39,10 +39,8 @@ function sendJSONXMLHTTPRequest(url, objects, callback) {
             try {
                 if (xhr.status==200) {
                     //XXX: parse some JSON from the request!
-                    //responseObj = JSON.parse(xhr.responseText);
                     //XXX: Pass the data to the callback!
                     callback(JSON.parse(xhr.responseText));
-                    //alert(xhr.responseText)
                 }
             }
             catch(e) {
@@ -101,7 +99,7 @@ function prepEntity(entity) {
         entity["colour"] = "#FF0000";
     }
     if (!entity["radius"]) {
-        entity["radius"] = 50;
+        entity["radius"] = getRandomArbitrary(25, 75);
     }
     return entity;
 }
